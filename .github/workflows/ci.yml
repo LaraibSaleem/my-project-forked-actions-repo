@@ -39,4 +39,4 @@ jobs:
       with:
           context: .
           push: true
-          tags: " {{defaultContext}} "
+          tags: ${{ secrets.DOCKER_USERNAME }}/my-project-forked-actions-repo:{{branches}}_commit_ID
