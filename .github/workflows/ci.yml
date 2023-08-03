@@ -24,7 +24,7 @@ jobs:
         # list of Docker images to use as base name for tags
         images: |
           laraibsaleem/my-project-forked-actions-repo
-          docker.io/username/app
+          docker.io/laraibsaleem/my-project-forked-actions-repo
         # generate Docker tags based on the following events/attributes
         tags: |
           type=schedule
