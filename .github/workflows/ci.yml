@@ -60,9 +60,7 @@ jobs:
           push: true
           # tags: laraibsaleem/my-project-forked-actions-repo:branch_name_&_commit_ID
           # tags: ${{ steps.meta.outputs.tags }} #pushes images with multiple tags (that are listed in tags list above) but not append them in a single image tag
-          # tags: |
-          #   ${{ steps.meta.outputs.tags }},${{ github.ref_slug }}-${{ github.sha }}
-          tags: |
-            ${{ github.ref_slug }}-${{ github.sha }}
+          if: github.branch_name != 'master'
+          tags: ${{ github.branch_name }}-${{ steps.meta.outputs.tags }}
           
           
