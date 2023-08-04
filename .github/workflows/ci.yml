@@ -23,13 +23,12 @@ jobs:
       with:
         # list of Docker images to use as base name for tags
         images: |
-          #laraibsaleem/my-project-forked-actions-repo
           docker.io/laraibsaleem/my-project-forked-actions-repo
         # generate Docker tags based on the following events/attributes
         tags: |
           # type=schedule
-          type=ref,event=branch
-          type=ref,event=pr
+          # type=ref,event=branch
+          # type=ref,event=pr
           # type=semver,pattern={{version}}
           # type=semver,pattern={{major}}.{{minor}}
           # type=semver,pattern={{major}}
@@ -59,7 +58,9 @@ jobs:
       with:
           context: .
           push: true
-          #tags: laraibsaleem/my-project-forked-actions-repo:branch_name_&_commit_ID
-          tags: ${{ steps.meta.outputs.tags }}
+          # tags: laraibsaleem/my-project-forked-actions-repo:branch_name_&_commit_ID
+          # tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ github.ref_slug }}-${{ steps.meta.outputs.tags }}
+
           
           
