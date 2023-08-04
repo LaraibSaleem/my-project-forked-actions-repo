@@ -60,7 +60,8 @@ jobs:
           push: true
           # tags: laraibsaleem/my-project-forked-actions-repo:branch_name_&_commit_ID
           # tags: ${{ steps.meta.outputs.tags }}
-          tags: ${{ github.ref_slug }}-${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ github.ref_slug }}-${{ steps.meta.outputs.tags }}
 
           
           
