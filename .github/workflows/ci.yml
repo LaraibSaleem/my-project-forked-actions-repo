@@ -62,8 +62,7 @@ jobs:
           # tags: ${{ steps.meta.outputs.tags }} #pushes images with multiple tags (that are listed in tags list above) but not append them in a single image tag
           # if: github.branch_name != 'master'
           # tags: ${{ github.branch_name }}-${{ steps.meta.outputs.tags }}
-          tags: |
-            ${{ steps.meta.outputs.tags }}-${{ github.sha }}
+          tags: ${{ steps.meta.outputs.tags }}
 
           
           
