@@ -1,3 +1,5 @@
+name: Release Trigger Check
+
 on:
   release:
     types: [released]
