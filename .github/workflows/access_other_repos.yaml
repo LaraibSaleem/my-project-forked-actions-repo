@@ -67,7 +67,7 @@ jobs:
     - name: Access other github reo
       uses: actions/checkout@v3
       with:
-          repository: workflows-1
+          repository: LaraibSaleem/workflows-1
           ref: 'master'
           token:  ${{ secrets.PAT_GITHUB }}
 
