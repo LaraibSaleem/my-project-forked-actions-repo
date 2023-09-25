@@ -76,6 +76,8 @@ jobs:
           git config user.name "Laraib Saleem"
           git config user.email "laraibsaleem98@gmail.com"
           yq -i eval '.images["actionsimagetag"] = .images.stripeimagetag | del(.images.stripeimagetag)' testfolder/testfile.yaml
+          git add .
+          git push origin/master
           #run: yq -i  eval '.images.frontendimagetag= "${{ secrets.DOCKERHUB_REPOSITORY }}:${{ env.BRANCH_NAME }}_${{ steps.image-tag.outputs.sha_short }}"' frontend/vpc/vpc-stage-values.yaml
           
 
