@@ -1,0 +1,84 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-java:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+  
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        # list of Docker images to use as base name for tags
+        images: |
+          docker.io/laraibsaleem/my-project-forked-actions-repo
+        # generate Docker tags based on the following events/attributes
+        tags: |
+          # type=schedule
+          type=ref,event=branch
+          # type=ref,event=pr
+          # type=semver,pattern={{version}}
+          # type=semver,pattern={{major}}.{{minor}}
+          # type=semver,pattern={{major}}
+          type=sha
+
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build with Gradle
+      run: ./gradlew build        
+        
+    - name: Login to Docker Hub
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@v2
+      with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+    
+    - name: Build and push
+      if: github.event_name != 'pull_request'
+      uses: docker/build-push-action@v4
+      with:
+          context: .
+          push: true
+          # tags: laraibsaleem/my-project-forked-actions-repo:branch_name_&_commit_ID
+          # tags: ${{ steps.meta.outputs.tags }} #pushes images with multiple tags (that are listed in tags list above) but not append them in a single image tag
+          # if: github.branch_name != 'master'
+          # tags: ${{ github.branch_name }}-${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}
+
+    - name: Access other github reo
+    - uses: actions/checkout@v3
+      with:
+          repository: workflows-1
+          ref: 'master'
+          token:  ${{ secrets.PAT_GITHUB }}
+
+    - name: setup git config
+      run: |
+          git config user.name "Laraib Saleem"
+          git config user.email "laraibsaleem98@gmail.com"
+          run yq -i eval '.images["actionsimagetag"] = .images.stripeimagetag | del(.images.stripeimagetag)' testfolder/testfile.yaml
+          #run: yq -i  eval '.images.frontendimagetag= "${{ secrets.DOCKERHUB_REPOSITORY }}:${{ env.BRANCH_NAME }}_${{ steps.image-tag.outputs.sha_short }}"' frontend/vpc/vpc-stage-values.yaml
+          
+
+
+
+    
