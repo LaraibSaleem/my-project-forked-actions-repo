@@ -78,7 +78,7 @@ jobs:
           yq -i eval '.images["actionsimagetag"] = .images.stripeimagetag | del(.images.stripeimagetag)' testfolder/testfile.yaml
           git add .
           git commit -m "update testfile"
-          git push origin/main
+          git push origin main
           #run: yq -i  eval '.images.frontendimagetag= "${{ secrets.DOCKERHUB_REPOSITORY }}:${{ env.BRANCH_NAME }}_${{ steps.image-tag.outputs.sha_short }}"' frontend/vpc/vpc-stage-values.yaml
           
 
