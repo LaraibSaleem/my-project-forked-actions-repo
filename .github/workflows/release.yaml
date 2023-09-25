@@ -42,3 +42,19 @@ jobs:
       
       - name: push to dockerhub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/my-project-forked-actions-repo:${{ env.RELEASE_VERSION }}
+
+      - name: Access other github reo
+        uses: actions/checkout@v3
+        with:
+            repository: LaraibSaleem/workflows-1
+            ref: 'main'
+            token:  ${{ secrets.PAT_GITHUB }}
+  
+      - name: setup git config
+        run: |
+            git config user.name "Laraib Saleem"
+            git config user.email "laraibsaleem98@gmail.com"
+            yq -i  eval '.images.actionsimagetag= "LaraibSaleem/workflows-1:${{ env.RELEASE_VERSION }}"' testfolder/testfile.yaml
+            git add .
+            git commit -m "update testfile"
+            git push origin main
