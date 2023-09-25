@@ -82,5 +82,4 @@ jobs:
           #run: yq -i  eval '.images.frontendimagetag= "${{ secrets.DOCKERHUB_REPOSITORY }}:${{ env.BRANCH_NAME }}_${{ steps.image-tag.outputs.sha_short }}"' frontend/vpc/vpc-stage-values.yaml
           
 
-
     
