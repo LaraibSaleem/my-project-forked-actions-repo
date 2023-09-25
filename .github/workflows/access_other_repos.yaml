@@ -65,7 +65,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
 
     - name: Access other github reo
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
       with:
           repository: workflows-1
           ref: 'master'
